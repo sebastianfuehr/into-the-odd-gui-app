@@ -1,0 +1,16 @@
+[tool.poetry]
+name = "itom"
+version = "0.1.0"
+description = "A graphical user interface to manage characters and other world building components of the pen and paper game Into the Odd."
+authors = ["Sebastian Führ <s.fuehr1@gmail.com>"]
+readme = "README.md"
+repository = "https://github.com/sebastianfuehr/into-the-odd-gui-app"
+license = "GPL-3.0"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
