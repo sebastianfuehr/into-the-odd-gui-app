@@ -34,15 +34,17 @@ lint: lint-black lint-isort lint-flake8 lint-mypy ## run all linters
 
 ##@ Tests
 
-unit-tests:
+unit-tests: ## run unit tests
 	@pytest
 
-unit-tests-cov:
+unit-tests-cov: ## run unit tests and generate code coverage reports
 	@pytest --cov=src --cov-report term-missing --cov-report=html
 
-unit-tests-cov-fail:
-	@pytest --cov=src --cov-report term-missing --cov-report=html --cov-fail-under=80
+unit-tests-cov-fail: ## like unit-tests-cov, but fails when coverage is less than 80% and generated a xml report for GitHub actions
+	@pytest --cov=src --cov-report term-missing --cov-report=html --cov-fail-under=80 --junitxml=pytest.xml | tee pytest-coverage.txt
 
-clean-cov:
+clean-cov: ## remove all coverage report files
 	@rm -rf .coverage
 	@rm -rf htmlcov
+	@rm -rf pytest.xml
+	@rm -rf pytest-coverage.txt
