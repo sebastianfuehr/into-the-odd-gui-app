@@ -31,3 +31,18 @@ lint-mypy-report: ## run mypy & create a report
 	mypy ./src --html-report ./mypy_html
 
 lint: lint-black lint-isort lint-flake8 lint-mypy ## run all linters
+
+##@ Tests
+
+unit-tests:
+	@pytest
+
+unit-tests-cov:
+	@pytest --cov=src --cov-report term-missing --cov-report=html
+
+unit-tests-cov-fail:
+	@pytest --cov=src --cov-report term-missing --cov-report=html --cov-fail-under=80
+
+clean-cov:
+	@rm -rf .coverage
+	@rm -rf htmlcov
