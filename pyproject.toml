@@ -17,6 +17,12 @@ black = "^23.7.0"
 flake8 = "^6.0.0"
 mypy = "^1.4.1"
 
+
+[tool.poetry.group.test.dependencies]
+pytest = "^7.4.0"
+pytest-sugar = "^0.9.7"
+pytest-cov = "^4.1.0"
+
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
@@ -48,3 +54,14 @@ warn_return_any = false
 warn_unreachable = true
 # Misc
 pretty = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-p no:cacheprovider" # deactivate pytest caching
+
+[tool.coverage.report]
+exclude_lines = [
+    'if __name__ == "__main__":',
+    "def __repr__",
+    "def __str__"
+]
