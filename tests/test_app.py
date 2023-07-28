@@ -1,7 +1,4 @@
-import pytest
-
-
-def test_app():
+def test_app() -> None:
     """Exists to allow pytest to run through withou throwing an error
     message.
 
