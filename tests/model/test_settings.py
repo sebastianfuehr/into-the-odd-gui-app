@@ -1,7 +1,7 @@
 from itom.model.settings import Settings
 
 
-def test_load_config_file():
+def test_load_config_file() -> None:
     settings = Settings(
         app_name="Itom",
         app_author="Sebastian Führ",
