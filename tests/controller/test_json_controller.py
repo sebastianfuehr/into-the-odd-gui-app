@@ -1,6 +1,6 @@
 import json
 
-from itom.controller.json_controller import ItomJSONEncoder, ItomJSONDecoderFunction
+from itom.controller.json_controller import ItomJSONDecoderFunction, ItomJSONEncoder
 from itom.model.character import Character
 
 
