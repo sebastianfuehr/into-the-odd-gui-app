@@ -1,5 +1,6 @@
-import json
 import dataclasses
+import json
+
 from itom.model.character import Character, ExperienceLevel
 
 

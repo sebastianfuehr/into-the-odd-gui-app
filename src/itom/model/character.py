@@ -1,6 +1,6 @@
+from dataclasses import dataclass
 from enum import Enum
 from typing import Tuple
-from dataclasses import dataclass
 
 
 class ExperienceLevel(Enum):
