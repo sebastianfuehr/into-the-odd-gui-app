@@ -58,7 +58,10 @@ pretty = true
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
-addopts = "-p no:cacheprovider" # deactivate pytest caching
+addopts = [
+    "-p no:cacheprovider", # deactivate pytest caching
+    "--import-mode=importlib"
+]
 
 [tool.coverage.report]
 exclude_lines = [
