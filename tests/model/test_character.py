@@ -1,10 +1,7 @@
-import dataclasses
-import json
-
 from itom.model.character import Character, ExperienceLevel
 
 
-def test_character_creation_default_values():
+def test_character_creation_default_values() -> None:
     new_character = Character(
         name="Ulf",
         strength=(10, 10),
@@ -13,6 +10,6 @@ def test_character_creation_default_values():
         hit_points=(6, 6),
         purse=(0, 0, 10),
     )
-    assert new_character.critical_damage == False
+    assert new_character.critical_damage is False
     assert new_character.armor == 0
     assert new_character.experience_level == ExperienceLevel.NOVICE
