@@ -1,10 +1,14 @@
+import datetime
 import json
 from typing import Any
 
+import dateutil.parser
+
 from itom.model.character import Character
+from itom.model.utils import Note
 
 
-def ItomJSONDecoderFunction(jsonDict: dict) -> Character | None:
+def ItomJSONDecoderFunction(jsonDict: dict) -> Note | Character | None:
     """Decodes JSON strings into Into the Odd objects.
 
     Supported modules and classes are:
@@ -28,14 +32,21 @@ def ItomJSONDecoderFunction(jsonDict: dict) -> Character | None:
             hit_points=hit_points,
             purse=purse,
         )
+    if "__type__" in jsonDict and jsonDict["__type__"] == Note.__name__:
+        date = dateutil.parser.parse(jsonDict["creation_date"])
+        return Note(creation_date=date, text=jsonDict["text"])
     return None
 
 
 class ItomJSONEncoder(json.JSONEncoder):
-    """Encodes Into the Odd objects into JSON format."""
+    """Encodes Into the Odd objects, as well as datetime objects into
+    JSON format.
+    """
 
     def default(self, obj: object) -> dict | Any:  # type: ignore[misc] # noqa: F821
         if hasattr(obj, "repr_json"):
             return obj.repr_json()
+        elif isinstance(obj, (datetime.date, datetime.datetime)):
+            return obj.isoformat()
         else:
             return json.JSONEncoder.default(self, obj)
