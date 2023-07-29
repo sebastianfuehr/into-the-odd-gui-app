@@ -5,37 +5,60 @@ from typing import Any
 import dateutil.parser
 
 from itom.model.character import Character
-from itom.model.utils import Note
+from itom.model.utils import Factory, Note
 
 
-def ItomJSONDecoderFunction(jsonDict: dict) -> Note | Character | None:
+class ItomJSONDecoder(json.JSONDecoder):
     """Decodes JSON strings into Into the Odd objects.
 
     Supported modules and classes are:
     - Character
     """
-    if "__type__" in jsonDict and jsonDict["__type__"] == Character.__name__:
-        strength = int(jsonDict["strength"][0]), int(jsonDict["strength"][1])
-        dexterity = int(jsonDict["dexterity"][0]), int(jsonDict["dexterity"][1])
-        willpower = int(jsonDict["willpower"][0]), int(jsonDict["willpower"][1])
-        hit_points = int(jsonDict["hit_points"][0]), int(jsonDict["hit_points"][1])
-        purse = (
-            int(jsonDict["purse"][0]),
-            int(jsonDict["purse"][1]),
-            int(jsonDict["purse"][2]),
-        )
-        return Character(
-            name=jsonDict["name"],
-            strength=strength,
-            dexterity=dexterity,
-            willpower=willpower,
-            hit_points=hit_points,
-            purse=purse,
-        )
-    if "__type__" in jsonDict and jsonDict["__type__"] == Note.__name__:
-        date = dateutil.parser.parse(jsonDict["creation_date"])
-        return Note(creation_date=date, text=jsonDict["text"])
-    return None
+
+    def __init__(self) -> None:
+        json.JSONDecoder.__init__(self, object_hook=self.object_hook)
+
+    def object_hook(self, json_dict: dict) -> Character | Note | Factory | dict:
+        if "__type__" in json_dict and json_dict["__type__"] == Character.__name__:
+            strength = int(json_dict["strength"][0]), int(json_dict["strength"][1])
+            dexterity = int(json_dict["dexterity"][0]), int(json_dict["dexterity"][1])
+            willpower = int(json_dict["willpower"][0]), int(json_dict["willpower"][1])
+            hit_points = int(json_dict["hit_points"][0]), int(
+                json_dict["hit_points"][1]
+            )
+            purse = (
+                int(json_dict["purse"][0]),
+                int(json_dict["purse"][1]),
+                int(json_dict["purse"][2]),
+            )
+            return Character(
+                name=json_dict["name"],
+                strength=strength,
+                dexterity=dexterity,
+                willpower=willpower,
+                hit_points=hit_points,
+                purse=purse,
+            )
+        if "__type__" in json_dict and json_dict["__type__"] == Note.__name__:
+            date = dateutil.parser.parse(json_dict["creation_date"])
+            return Note(creation_date=date, text=json_dict["text"])
+        if "__type__" in json_dict and json_dict["__type__"] == Factory.__name__:
+            creation_date = dateutil.parser.parse(json_dict["creation_date"])
+            acquisition_date = None
+            if json_dict["acquisition_date"]:
+                acquisition_date = dateutil.parser.parse(
+                    json_dict["acquisition_date"]
+                ).date()
+            return Factory(
+                creation_date=creation_date,
+                name=json_dict["name"],
+                acquisition_date=acquisition_date,
+                description=json_dict["description"],
+                location=json_dict["location"],
+                income_level=json_dict["income_level"],
+                notes=json_dict["notes"],
+            )
+        return json_dict
 
 
 class ItomJSONEncoder(json.JSONEncoder):
