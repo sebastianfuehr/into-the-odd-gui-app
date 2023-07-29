@@ -3,7 +3,7 @@ from datetime import datetime
 
 from itom.controller.json_controller import ItomJSONDecoderFunction, ItomJSONEncoder
 from itom.model.character import Character
-from itom.model.utils import Note
+from itom.model.utils import Die, Note, Factory
 
 
 def test_json_encode_character(simple_character_ulf: Character) -> None:
@@ -52,3 +52,24 @@ def test_json_decode_note() -> None:
     json_file = json.dumps(new_note.repr_json(), cls=ItomJSONEncoder)
     decoded_note = json.loads(json_file, object_hook=ItomJSONDecoderFunction)
     assert decoded_note == new_note
+
+
+def test_json_encode_die() -> None:
+    json_repr = json.dumps(Die.D4)
+    assert json_repr == "4"
+
+
+def test_json_encode_factory() -> None:
+    creation_date = datetime(2023, 7, 28, 15, 18, 56)
+    name = "Test Factory"
+    new_factory = Factory(creation_date=creation_date, name=name)
+    assert json.dumps(new_factory.repr_json(), cls=ItomJSONEncoder) == (
+        '{"__type__": "Factory", '
+        '"creation_date": "2023-07-28T15:18:56", '
+        '"name": "Test Factory", '
+        '"acquisition_date": null, '
+        '"description": null, '
+        '"location": null, '
+        '"income_level": 4, '
+        '"notes": null}'
+    )
