@@ -5,7 +5,7 @@ from typing import Any
 import dateutil.parser
 
 from itom.model.character import Character
-from itom.model.utils import Factory, Note
+from itom.model.misc_models import Factory, Note
 
 
 class ItomJSONDecoder(json.JSONDecoder):
