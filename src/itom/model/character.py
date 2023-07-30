@@ -2,6 +2,8 @@ from dataclasses import dataclass
 from enum import Enum
 from typing import Optional, Tuple
 
+from itom.model.misc_models import Note
+
 
 class ExperienceLevel(str, Enum):
     """
@@ -27,11 +29,11 @@ class Character:
     purse: Tuple[int, int, int]
     critical_damage: bool = False
     armor: int = 0
-    advantages: Optional[list] = None
-    disadvantages: Optional[list] = None
+    advantages: Optional[list[str]] = None
+    disadvantages: Optional[list[str]] = None
     possessions: Optional[list] = None
     weapons: Optional[list] = None
-    notes: Optional[list] = None
+    notes: Optional[list[Note]] = None
     experience_level: ExperienceLevel = ExperienceLevel.NOVICE
     arcana: Optional[list] = None
     enterprises: Optional[list] = None
