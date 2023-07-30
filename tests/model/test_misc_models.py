@@ -2,7 +2,7 @@ from datetime import datetime
 
 from utils.ito_mock_data_utils import generate_random_notes
 
-from itom.model.misc_models import Die, Factory, Note
+from itom.model.misc_models import Die, Enterprise, Note
 
 
 def test_note_repr_json() -> None:
@@ -16,34 +16,45 @@ def test_note_repr_json() -> None:
     }
 
 
-class TestFactoryModel:
-    def test_factory_repr_json(self) -> None:
+class TestEnterpriseModel:
+    def test_enterprise_repr_json(self) -> None:
         creation_date = datetime(2023, 7, 28, 15, 18, 56)
-        name = "Test Factory"
-        new_factory = Factory(creation_date=creation_date, name=name)
-        assert new_factory.repr_json() == {
-            "__type__": Factory.__name__,
+        name = "Test Enterprise"
+        enterprise_type = "Coal production factory"
+        new_enterprise = Enterprise(
+            creation_date=creation_date, name=name, enterprise_type=enterprise_type
+        )
+        assert new_enterprise.repr_json() == {
+            "__type__": Enterprise.__name__,
             "creation_date": creation_date,
             "name": name,
-            "acquisition_date": None,
+            "enterprise_type": enterprise_type,
+            "founding_date": None,
+            "income_level": Die.D4,
             "description": None,
             "location": None,
-            "income_level": Die.D4,
             "notes": None,
         }
 
-    def test_factory_with_notes_repr_json(self) -> None:
+    def test_enterprise_with_notes_repr_json(self) -> None:
         notes = generate_random_notes(amount=5)
         creation_date = datetime(2023, 7, 28, 15, 18, 56)
         name = "Test Factory"
-        new_factory = Factory(creation_date=creation_date, name=name, notes=notes)
-        assert new_factory.repr_json() == {
-            "__type__": Factory.__name__,
+        enterprise_type = "Coal production factory"
+        new_enterprise = Enterprise(
+            creation_date=creation_date,
+            name=name,
+            enterprise_type=enterprise_type,
+            notes=notes,
+        )
+        assert new_enterprise.repr_json() == {
+            "__type__": Enterprise.__name__,
             "creation_date": creation_date,
             "name": name,
-            "acquisition_date": None,
+            "enterprise_type": enterprise_type,
+            "founding_date": None,
+            "income_level": Die.D4,
             "description": None,
             "location": None,
-            "income_level": Die.D4,
             "notes": notes,
         }

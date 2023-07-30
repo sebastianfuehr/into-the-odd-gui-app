@@ -27,23 +27,25 @@ class Note:
 
 
 @dataclass
-class Factory:
+class Enterprise:
     creation_date: datetime
     name: str
-    acquisition_date: Optional[date] = None
+    enterprise_type: str
+    founding_date: Optional[date] = None
+    income_level: Die = Die.D4
     description: Optional[str] = None
     location: Optional[str] = None
-    income_level: Die = Die.D4
     notes: Optional[list[Note]] = None
 
     def repr_json(self) -> dict:
         return dict(
-            __type__=Factory.__name__,
+            __type__=Enterprise.__name__,
             creation_date=self.creation_date,
             name=self.name,
-            acquisition_date=self.acquisition_date,
+            enterprise_type=self.enterprise_type,
+            founding_date=self.founding_date,
+            income_level=self.income_level,
             description=self.description,
             location=self.location,
-            income_level=self.income_level,
             notes=self.notes,
         )

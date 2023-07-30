@@ -5,7 +5,7 @@ import pytest
 
 from itom.controller.json_controller import ItomJSONDecoder, ItomJSONEncoder
 from itom.model.character import Character
-from itom.model.misc_models import Die, Factory, Note
+from itom.model.misc_models import Die, Enterprise, Note
 
 
 class TestCharacterModelJSONSerialization:
@@ -91,43 +91,57 @@ def test_json_encode_die() -> None:
     assert json_repr == "4"
 
 
-class TestFactoryModelJSONSerialization:
-    def test_json_encode_factory_simple(self) -> None:
+class TestEnterpriseModelJSONSerialization:
+    def test_json_encode_enterprise_simple(self) -> None:
         creation_date = datetime(2023, 7, 28, 15, 18, 56)
-        name = "Test Factory"
-        new_factory = Factory(creation_date=creation_date, name=name)
-        assert json.dumps(new_factory.repr_json(), cls=ItomJSONEncoder) == (
-            '{"__type__": "Factory", '
+        name = "Test Enterprise"
+        enterprise_type = "Coal production factory"
+        new_enterprise = Enterprise(
+            creation_date=creation_date, name=name, enterprise_type=enterprise_type
+        )
+        assert json.dumps(new_enterprise.repr_json(), cls=ItomJSONEncoder) == (
+            '{"__type__": "Enterprise", '
             '"creation_date": "2023-07-28T15:18:56", '
-            '"name": "Test Factory", '
-            '"acquisition_date": null, '
+            '"name": "Test Enterprise", '
+            '"enterprise_type": "Coal production factory", '
+            '"founding_date": null, '
+            '"income_level": 4, '
             '"description": null, '
             '"location": null, '
-            '"income_level": 4, '
             '"notes": null}'
         )
 
-    def test_json_decode_factory_simple(self) -> None:
+    def test_json_decode_enterprise_simple(self) -> None:
         creation_date = datetime(2023, 7, 28, 15, 18, 56)
-        name = "Test Factory"
-        new_factory = Factory(creation_date=creation_date, name=name)
-        json_file = json.dumps(new_factory.repr_json(), cls=ItomJSONEncoder)
+        name = "Test Enterprise"
+        enterprise_type = "Coal production factory"
+        new_enterprise = Enterprise(
+            creation_date=creation_date, name=name, enterprise_type=enterprise_type
+        )
+        json_file = json.dumps(new_enterprise.repr_json(), cls=ItomJSONEncoder)
         decoded_factory = json.loads(json_file, cls=ItomJSONDecoder)
-        assert decoded_factory == new_factory
+        assert decoded_factory == new_enterprise
 
-    def test_json_encode_factory_with_notes(self) -> None:
+    def test_json_encode_enterprise_with_notes(self) -> None:
         creation_date = datetime(2023, 7, 28, 15, 18, 56)
         notes = [Note(creation_date=creation_date, text="Bought a factory.")]
-        name = "Test Factory"
-        new_factory = Factory(creation_date=creation_date, name=name, notes=notes)
-        assert json.dumps(new_factory.repr_json(), cls=ItomJSONEncoder) == (
-            '{"__type__": "Factory", '
+        name = "Test Enterprise"
+        enterprise_type = "Coal production factory"
+        new_enterprise = Enterprise(
+            creation_date=creation_date,
+            name=name,
+            enterprise_type=enterprise_type,
+            notes=notes,
+        )
+        assert json.dumps(new_enterprise.repr_json(), cls=ItomJSONEncoder) == (
+            '{"__type__": "Enterprise", '
             '"creation_date": "2023-07-28T15:18:56", '
-            '"name": "Test Factory", '
-            '"acquisition_date": null, '
+            '"name": "Test Enterprise", '
+            '"enterprise_type": "Coal production factory", '
+            '"founding_date": null, '
+            '"income_level": 4, '
             '"description": null, '
             '"location": null, '
-            '"income_level": 4, '
             '"notes": [{'
             '"__type__": "Note", '
             '"creation_date": "2023-07-28T15:18:56", '
