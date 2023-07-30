@@ -62,7 +62,6 @@ pretty = true
 testpaths = ["tests"]
 addopts = [
     "-p no:cacheprovider", # deactivate pytest caching
-    "--import-mode=importlib"
 ]
 
 [tool.coverage.report]
