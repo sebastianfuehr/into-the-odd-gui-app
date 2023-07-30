@@ -1,6 +1,6 @@
 from datetime import datetime
 
-from utils.mock_data_utils import generate_random_notes
+from utils.ito_mock_data_utils import generate_random_notes
 
 from itom.model.misc_models import Die, Factory, Note
 
