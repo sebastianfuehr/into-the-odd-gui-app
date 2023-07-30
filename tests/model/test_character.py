@@ -1,3 +1,5 @@
+import pytest
+
 from itom.model.character import Character, ExperienceLevel
 
 
@@ -15,23 +17,27 @@ def test_character_creation_default_values() -> None:
     assert new_character.experience_level == ExperienceLevel.NOVICE
 
 
-def test_repr_json(simple_character_ulf: Character) -> None:
-    assert simple_character_ulf.repr_json() == {
+@pytest.mark.parametrize(
+    "character_fixture_name", ["simple_character_ulf", "full_character_torsten"]
+)
+def test_repr_json(character_fixture_name: str, request: pytest.FixtureRequest) -> None:
+    character = request.getfixturevalue(character_fixture_name)
+    assert character.repr_json() == {
         "__type__": Character.__name__,
-        "name": "Ulf",
-        "strength": (12, 12),
-        "dexterity": (9, 9),
-        "willpower": (11, 11),
-        "hit_points": (6, 6),
-        "purse": (0, 50, 10),
-        "critical_damage": False,
-        "armor": 0,
-        "advantages": None,
-        "disadvantages": None,
-        "possessions": None,
-        "weapons": None,
-        "notes": None,
-        "experience_level": "Novice",
-        "arcana": None,
-        "enterprises": None,
+        "name": character.name,
+        "strength": character.strength,
+        "dexterity": character.dexterity,
+        "willpower": character.willpower,
+        "hit_points": character.hit_points,
+        "purse": character.purse,
+        "critical_damage": character.critical_damage,
+        "armor": character.armor,
+        "advantages": character.advantages,
+        "disadvantages": character.disadvantages,
+        "possessions": character.possessions,
+        "weapons": character.weapons,
+        "notes": character.notes,
+        "experience_level": character.experience_level,
+        "arcana": character.arcana,
+        "enterprises": character.enterprises,
     }

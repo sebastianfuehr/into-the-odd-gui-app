@@ -1,6 +1,8 @@
 import json
 from datetime import datetime
 
+import pytest
+
 from itom.controller.json_controller import ItomJSONDecoder, ItomJSONEncoder
 from itom.model.character import Character
 from itom.model.misc_models import Die, Factory, Note
@@ -28,10 +30,39 @@ def test_json_encode_character(simple_character_ulf: Character) -> None:
     )
 
 
-def test_json_decode_character(simple_character_ulf: Character) -> None:
-    json_file = json.dumps(simple_character_ulf.repr_json(), cls=ItomJSONEncoder)
+def test_json_encode_full_character_torsten(full_character_torsten: Character) -> None:
+    notes_json = json.dumps(full_character_torsten.notes, cls=ItomJSONEncoder)
+    assert json.dumps(full_character_torsten.repr_json(), cls=ItomJSONEncoder) == (
+        '{"__type__": "Character", '
+        '"name": "Torsten", '
+        '"strength": [10, 10], '
+        '"dexterity": [12, 12], '
+        '"willpower": [13, 13], '
+        '"hit_points": [8, 8], '
+        '"purse": [25, 89, 121], '
+        '"critical_damage": false, '
+        '"armor": 2, '
+        '"advantages": ["Good looking", "Quick thinker"], '
+        '"disadvantages": ["Curiousity"], '
+        '"possessions": null, '
+        '"weapons": null, '
+        f'"notes": {notes_json}, '
+        '"experience_level": "Professional", '
+        '"arcana": null, '
+        '"enterprises": null}'
+    )
+
+
+@pytest.mark.parametrize(
+    "character_fixture_name", ["simple_character_ulf", "full_character_torsten"]
+)
+def test_json_decode_character(
+    character_fixture_name: str, request: pytest.FixtureRequest
+) -> None:
+    character = request.getfixturevalue(character_fixture_name)
+    json_file = json.dumps(character.repr_json(), cls=ItomJSONEncoder)
     decoded_character = json.loads(json_file, cls=ItomJSONDecoder)
-    assert decoded_character == simple_character_ulf
+    assert decoded_character == character
 
 
 def test_json_encode_note() -> None:

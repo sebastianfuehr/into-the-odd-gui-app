@@ -38,6 +38,16 @@ class ItomJSONDecoder(json.JSONDecoder):
                 willpower=willpower,
                 hit_points=hit_points,
                 purse=purse,
+                critical_damage=json_dict["critical_damage"],
+                armor=json_dict["armor"],
+                advantages=json_dict["advantages"],
+                disadvantages=json_dict["disadvantages"],
+                possessions=json_dict["possessions"],
+                weapons=json_dict["weapons"],
+                notes=json_dict["notes"],
+                experience_level=json_dict["experience_level"],
+                arcana=json_dict["arcana"],
+                enterprises=json_dict["enterprises"],
             )
         if "__type__" in json_dict and json_dict["__type__"] == Note.__name__:
             date = dateutil.parser.parse(json_dict["creation_date"])
