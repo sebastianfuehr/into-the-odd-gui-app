@@ -1,4 +1,5 @@
 import pytest
+
 from itom.model.character import Character, ExperienceLevel
 
 
@@ -19,7 +20,7 @@ def test_character_creation_default_values() -> None:
 @pytest.mark.parametrize(
     "character_fixture_name", ["simple_character_ulf", "full_character_torsten"]
 )
-def test_repr_json(character_fixture_name: str, request) -> None:
+def test_repr_json(character_fixture_name: str, request: pytest.FixtureRequest) -> None:
     character = request.getfixturevalue(character_fixture_name)
     assert character.repr_json() == {
         "__type__": Character.__name__,

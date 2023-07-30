@@ -1,7 +1,7 @@
 import pytest
+from utils.ito_mock_data_utils import generate_random_notes
 
 from itom.model.character import Character, ExperienceLevel
-from utils.ito_mock_data_utils import generate_random_notes
 
 
 @pytest.fixture
