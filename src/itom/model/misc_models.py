@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 from datetime import date, datetime
-from enum import IntEnum
-from typing import Optional
+from enum import IntEnum, StrEnum
+from typing import Optional, Tuple
 
 
 class Die(IntEnum):
@@ -24,6 +24,99 @@ class Note:
             creation_date=self.creation_date,
             text=self.text,
         )
+
+
+@dataclass
+class Item:
+    name: str
+    description: Optional[str] = None
+    bulky: bool = False
+    # A worth of None means the value of the item is unknown
+    worth: Optional[Tuple[int, int, int]] = None
+    image_file_path: Optional[str] = None
+
+    def repr_json(self) -> dict:
+        return dict(
+            __type__=Item.__name__,
+            name=self.name,
+            description=self.description,
+            bulky=self.bulky,
+            worth=self.worth,
+            image_file_path=self.image_file_path,
+        )
+
+
+class WeaponType(StrEnum):
+    CRUDE_WEAPON = "Crude Weapon"
+    HAND_WEAPON = "Hand Weapon"
+    FIELD_WEAPON = "Field Weapon"
+    NOBLE_WEAPON = "Noble Weapon"
+    HEAVY_GUN = "Heavy Gun"
+
+
+@dataclass(kw_only=True)
+class Weapon(Item):
+    dmg_die: Die
+    amt_dice: int = 1
+    # A weapon type of None means the weapon type is unknown
+    weapon_type: Optional[WeaponType] = None
+
+    def repr_json(self) -> dict:
+        parent_dict = super().repr_json()
+        parent_dict["__type__"] = Weapon.__name__
+        return {
+            **parent_dict,
+            **dict(
+                dmg_die=self.dmg_die,
+                amt_dice=self.amt_dice,
+                weapon_type=self.weapon_type,
+            ),
+        }
+
+
+class ArmorType(StrEnum):
+    CRUDE_ARMOR = "Crude Armor"
+    MODERN_ARMOR = "Modern Armor"
+
+
+@dataclass(kw_only=True)
+class Armor(Item):
+    protection_value: int
+    # An armor type of None means the armor type is unknown
+    armor_type: Optional[ArmorType] = None
+    equipped: bool = True
+
+    def repr_json(self) -> dict:
+        parent_dict = super().repr_json()
+        parent_dict["__type__"] = Armor.__name__
+        return {
+            **parent_dict,
+            **dict(
+                protection_value=self.protection_value,
+                armor_type=self.armor_type,
+                equipped=self.equipped,
+            ),
+        }
+
+
+class ArcanmumType(StrEnum):
+    STANDARD = "Standard"
+    GREATER = "Greater"
+    LEGENDARY = "Legendary"
+
+
+@dataclass(kw_only=True)
+class Arcanmum(Item):
+    idx_nbr: int
+    arcanmum_type: ArcanmumType
+
+    def repr_json(self) -> dict:
+        parent_dict = super().repr_json()
+        parent_dict["__type__"] = Arcanmum.__name__
+        return {
+            **parent_dict,
+            **dict(idx_nbr=self.idx_nbr, arcanmum_type=self.arcanmum_type),
+        }
 
 
 @dataclass
