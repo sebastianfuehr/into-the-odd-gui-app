@@ -2,7 +2,18 @@ from datetime import datetime
 
 from utils.ito_mock_data_utils import generate_random_notes
 
-from itom.model.misc_models import Die, Enterprise, Note
+from itom.model.misc_models import (
+    Arcanmum,
+    ArcanmumType,
+    Armor,
+    ArmorType,
+    Die,
+    Enterprise,
+    Item,
+    Note,
+    Weapon,
+    WeaponType,
+)
 
 
 def test_note_repr_json() -> None:
@@ -13,6 +24,87 @@ def test_note_repr_json() -> None:
         "__type__": Note.__name__,
         "creation_date": date,
         "text": text,
+    }
+
+
+def test_item_repr_json() -> None:
+    name = "Test Item"
+    new_item = Item(name=name)
+    assert new_item.repr_json() == {
+        "__type__": Item.__name__,
+        "name": name,
+        "description": None,
+        "bulky": False,
+        "worth": None,
+        "image_file_path": None,
+    }
+
+
+def test_weapon_repr_json() -> None:
+    name = "Pitchfork"
+    new_weapon = Weapon(
+        name=name,
+        bulky=True,
+        worth=(0, 1, 0),
+        dmg_die=Die.D6,
+        weapon_type=WeaponType.CRUDE_WEAPON,
+    )
+    assert new_weapon.repr_json() == {
+        "__type__": Weapon.__name__,
+        "name": name,
+        "description": None,
+        "bulky": True,
+        "worth": (0, 1, 0),
+        "image_file_path": None,
+        "dmg_die": Die.D6,
+        "amt_dice": 1,
+        "weapon_type": "Crude Weapon",
+    }
+
+
+def test_armor_repr_json() -> None:
+    name = "Ceremonial Armor"
+    new_armor = Armor(
+        name=name,
+        bulky=True,
+        worth=(0, 25, 0),
+        protection_value=1,
+        armor_type=ArmorType.CRUDE_ARMOR,
+    )
+    assert new_armor.repr_json() == {
+        "__type__": Armor.__name__,
+        "name": name,
+        "description": None,
+        "bulky": True,
+        "worth": (0, 25, 0),
+        "image_file_path": None,
+        "protection_value": 1,
+        "armor_type": "Crude Armor",
+        "equipped": True,
+    }
+
+
+def test_arcanum_repr_json() -> None:
+    name = "Pierced Heart"
+    description = (
+        "State an object that you desire. The heart indicated its direction and vague"
+        " distance."
+    )
+    new_arcanum = Arcanmum(
+        name=name,
+        description=description,
+        idx_nbr=12,
+        arcanum_type=ArcanmumType.STANDARD,
+    )
+    assert new_arcanum.repr_json() == {
+        "__type__": Arcanmum.__name__,
+        "name": name,
+        "description": description,
+        "bulky": False,
+        "worth": None,
+        "image_file_path": None,
+        "idx_nbr": 12,
+        "arcanum_type": "Standard",
     }
 
 
