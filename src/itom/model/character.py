@@ -28,15 +28,24 @@ class Character:
     hit_points: Tuple[int, int]
     purse: Tuple[int, int, int]
     critical_damage: bool = False
-    armor: int = 0
     advantages: Optional[list[str]] = None
     disadvantages: Optional[list[str]] = None
     possessions: Optional[list] = None
+    armor_items: Optional[list] = None
     weapons: Optional[list] = None
     notes: Optional[list[Note]] = None
     experience_level: ExperienceLevel = ExperienceLevel.NOVICE
     arcana: Optional[list] = None
     enterprises: Optional[list] = None
+
+    @property
+    def armor(self) -> int:
+        if self.armor_items:
+            return sum(
+                armor_item["protection_value"] for armor_item in self.armor_items
+            )
+        else:
+            return 0
 
     def repr_json(self) -> dict:
         return dict(
@@ -52,6 +61,7 @@ class Character:
             advantages=self.advantages,
             disadvantages=self.disadvantages,
             possessions=self.possessions,
+            armor_items=self.armor_items,
             weapons=self.weapons,
             notes=self.notes,
             experience_level=self.experience_level,
