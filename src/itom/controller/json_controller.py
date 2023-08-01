@@ -57,7 +57,6 @@ class ItomJSONDecoder(json.JSONDecoder):
                 notes=json_dict["notes"],
                 experience_level=json_dict["experience_level"],
                 arcana=json_dict["arcana"],
-                enterprises=json_dict["enterprises"],
             )
         if "__type__" in json_dict and json_dict["__type__"] == Item.__name__:
             worth = None
@@ -155,6 +154,7 @@ class ItomJSONDecoder(json.JSONDecoder):
                 creation_date=creation_date,
                 name=json_dict["name"],
                 enterprise_type=json_dict["enterprise_type"],
+                owners=json_dict["owners"],
                 founding_date=founding_date,
                 description=json_dict["description"],
                 location=json_dict["location"],

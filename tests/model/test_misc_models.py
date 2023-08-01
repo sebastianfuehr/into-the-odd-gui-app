@@ -130,14 +130,19 @@ class TestEnterpriseModel:
         creation_date = datetime(2023, 7, 28, 15, 18, 56)
         name = "Test Enterprise"
         enterprise_type = "Coal production factory"
+        owners = ["Ulf", "Torsten"]
         new_enterprise = Enterprise(
-            creation_date=creation_date, name=name, enterprise_type=enterprise_type
+            creation_date=creation_date,
+            name=name,
+            enterprise_type=enterprise_type,
+            owners=owners,
         )
         assert new_enterprise.repr_json() == {
             "__type__": Enterprise.__name__,
             "creation_date": creation_date,
             "name": name,
             "enterprise_type": enterprise_type,
+            "owners": owners,
             "founding_date": None,
             "income_level": Die.D4,
             "description": None,
@@ -150,10 +155,12 @@ class TestEnterpriseModel:
         creation_date = datetime(2023, 7, 28, 15, 18, 56)
         name = "Test Factory"
         enterprise_type = "Coal production factory"
+        owners = ["Ulf", "Torsten"]
         new_enterprise = Enterprise(
             creation_date=creation_date,
             name=name,
             enterprise_type=enterprise_type,
+            owners=owners,
             notes=notes,
         )
         assert new_enterprise.repr_json() == {
@@ -161,6 +168,7 @@ class TestEnterpriseModel:
             "creation_date": creation_date,
             "name": name,
             "enterprise_type": enterprise_type,
+            "owners": owners,
             "founding_date": None,
             "income_level": Die.D4,
             "description": None,

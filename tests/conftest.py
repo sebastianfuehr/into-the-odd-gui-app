@@ -46,5 +46,4 @@ def full_character_torsten() -> Character:
         notes=notes,
         experience_level=ExperienceLevel.PROFESSIONAL,
         arcana=None,
-        enterprises=None,
     )

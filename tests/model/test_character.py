@@ -40,5 +40,4 @@ def test_repr_json(character_fixture_name: str, request: pytest.FixtureRequest) 
         "notes": character.notes,
         "experience_level": character.experience_level,
         "arcana": character.arcana,
-        "enterprises": character.enterprises,
     }

@@ -40,8 +40,7 @@ class TestCharacterModelJSONSerialization:
             '"weapons": null, '
             '"notes": null, '
             '"experience_level": "Novice", '
-            '"arcana": null, '
-            '"enterprises": null}'
+            '"arcana": null}'
         )
 
     def test_json_encode_full_character_torsten(
@@ -67,8 +66,7 @@ class TestCharacterModelJSONSerialization:
             f'"weapons": {weapons_json}, '
             f'"notes": {notes_json}, '
             '"experience_level": "Professional", '
-            '"arcana": null, '
-            '"enterprises": null}'
+            '"arcana": null}'
         )
 
     @pytest.mark.parametrize(
@@ -264,8 +262,12 @@ class TestEnterpriseModelJSONSerialization:
         creation_date = datetime(2023, 7, 28, 15, 18, 56)
         name = "Test Enterprise"
         enterprise_type = "Coal production factory"
+        owners = ["Ulf", "Torsten"]
         new_enterprise = Enterprise(
-            creation_date=creation_date, name=name, enterprise_type=enterprise_type
+            creation_date=creation_date,
+            name=name,
+            enterprise_type=enterprise_type,
+            owners=owners,
         )
         assert (
             json.dumps(new_enterprise.repr_json(), cls=ItomJSONEncoder)
@@ -273,6 +275,7 @@ class TestEnterpriseModelJSONSerialization:
             '"creation_date": "2023-07-28T15:18:56", '
             '"name": "Test Enterprise", '
             '"enterprise_type": "Coal production factory", '
+            '"owners": ["Ulf", "Torsten"], '
             '"founding_date": null, '
             '"income_level": 4, '
             '"description": null, '
@@ -284,8 +287,12 @@ class TestEnterpriseModelJSONSerialization:
         creation_date = datetime(2023, 7, 28, 15, 18, 56)
         name = "Test Enterprise"
         enterprise_type = "Coal production factory"
+        owners = ["Ulf", "Torsten"]
         new_enterprise = Enterprise(
-            creation_date=creation_date, name=name, enterprise_type=enterprise_type
+            creation_date=creation_date,
+            name=name,
+            enterprise_type=enterprise_type,
+            owners=owners,
         )
         json_file = json.dumps(new_enterprise.repr_json(), cls=ItomJSONEncoder)
         decoded_factory = json.loads(json_file, cls=ItomJSONDecoder)
@@ -296,10 +303,12 @@ class TestEnterpriseModelJSONSerialization:
         notes = [Note(creation_date=creation_date, text="Bought a factory.")]
         name = "Test Enterprise"
         enterprise_type = "Coal production factory"
+        owners = ["Ulf", "Torsten"]
         new_enterprise = Enterprise(
             creation_date=creation_date,
             name=name,
             enterprise_type=enterprise_type,
+            owners=owners,
             notes=notes,
         )
         assert (
@@ -308,6 +317,7 @@ class TestEnterpriseModelJSONSerialization:
             '"creation_date": "2023-07-28T15:18:56", '
             '"name": "Test Enterprise", '
             '"enterprise_type": "Coal production factory", '
+            '"owners": ["Ulf", "Torsten"], '
             '"founding_date": null, '
             '"income_level": 4, '
             '"description": null, '
