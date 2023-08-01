@@ -144,6 +144,7 @@ class Enterprise:
     creation_date: datetime
     name: str
     enterprise_type: str
+    owners: list[str]
     founding_date: Optional[date] = None
     income_level: Die = Die.D4
     description: Optional[str] = None

@@ -36,7 +36,6 @@ class Character:
     notes: Optional[list[Note]] = None
     experience_level: ExperienceLevel = ExperienceLevel.NOVICE
     arcana: Optional[list] = None
-    enterprises: Optional[list] = None
 
     @property
     def armor(self) -> int:
