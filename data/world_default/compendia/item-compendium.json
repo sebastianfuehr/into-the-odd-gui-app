@@ -1,0 +1,79 @@
+{
+    "items": [
+        {
+            "__type__": "Item",
+            "name": "Lockpick",
+            "description": null,
+            "bulky": false,
+            "worth": [
+                0,
+                1,
+                0
+            ],
+            "image_file_path": null
+        }
+    ],
+    "weapons": [],
+    "armor_items": [
+        {
+            "__type__": "Armor",
+            "name": "Breastplate and helm",
+            "description": null,
+            "bulky": false,
+            "worth": [
+                0,
+                50,
+                0
+            ],
+            "image_file_path": null,
+            "protection_value": 1,
+            "armor_type": "Modern Armor",
+            "equipped": false
+        },
+        {
+            "__type__": "Armor",
+            "name": "Outdated Armor",
+            "description": null,
+            "bulky": true,
+            "worth": [
+                0,
+                25,
+                0
+            ],
+            "image_file_path": null,
+            "protection_value": 1,
+            "armor_type": "Crude Armor",
+            "equipped": false
+        },
+        {
+            "__type__": "Armor",
+            "name": "Ceremonial Armor",
+            "description": null,
+            "bulky": true,
+            "worth": [
+                0,
+                25,
+                0
+            ],
+            "image_file_path": null,
+            "protection_value": 1,
+            "armor_type": "Crude Armor",
+            "equipped": false
+        },
+        {
+            "__type__": "Armor",
+            "name": "Shield",
+            "description": null,
+            "bulky": true,
+            "worth": [
+                0,
+                10,
+                0
+            ],
+            "image_file_path": null,
+            "protection_value": 1,
+            "armor_type": "Shield",
+            "equipped": false
+        }
+    ]
+}
