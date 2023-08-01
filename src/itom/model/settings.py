@@ -48,3 +48,15 @@ class Settings:
 
     def load_settings(self) -> None:
         self.name = self.config["DEFAULT"]["settings_name"]
+        self.data_dir = self.create_data_dir_path()
+
+    def create_data_dir_path(self) -> str:
+        """Checks whether the user settings overwrite the default data
+        directory path. If not, sets the variable to be the default,
+        relative path.
+        """
+        data_dir_usr_settings = self.config["directories"]["data_dir"]
+        if len(data_dir_usr_settings) == 0:
+            return f"{self.app_root_dir}/data/"
+        else:
+            return f"{self.app_root_dir}/{data_dir_usr_settings}"
