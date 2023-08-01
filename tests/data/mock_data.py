@@ -1,3 +1,5 @@
+from itom.model.misc_models import Die, Weapon, WeaponType
+
 # Comments have been generated via randomiandfy.com
 COMMENTS = [
     "This is a random comment.",
@@ -22,5 +24,38 @@ COMMENTS = [
     (
         "Using other people's kindness for your own egoistic interests is a very bad"
         " thing to do."
+    ),
+]
+
+WEAPONS = [
+    Weapon(
+        name="Sword",
+        description="A simple sword.",
+        bulky=False,
+        worth=(0, 2, 0),
+        image_file_path=None,
+        dmg_die=Die.D6,
+        amt_dice=1,
+        weapon_type=WeaponType.HAND_WEAPON,
+    ),
+    Weapon(
+        name="Musket",
+        description="A ranged weapon.",
+        bulky=True,
+        worth=(0, 10, 0),
+        image_file_path=None,
+        dmg_die=Die.D8,
+        amt_dice=1,
+        weapon_type=WeaponType.FIELD_WEAPON,
+    ),
+    Weapon(
+        name="Elephant gun",
+        description="Cannot move and fire.",
+        bulky=True,
+        worth=(0, 0, 1),
+        image_file_path=None,
+        dmg_die=Die.D10,
+        amt_dice=1,
+        weapon_type=WeaponType.HEAVY_GUN,
     ),
 ]
