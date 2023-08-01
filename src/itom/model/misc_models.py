@@ -46,6 +46,25 @@ class Item:
         )
 
 
+@dataclass
+class InventoryItem(Item):
+    """An item which is in the possession of a character.
+
+    A spearate class is introduced to prohibit other item types like
+    Weapon or Armor to be stacked.
+
+    Attributes
+        amount: How many items the character has in their inventory.
+    """
+
+    amount: int = 1
+
+    def repr_json(self) -> dict:
+        parent_dict = super().repr_json()
+        parent_dict["__type__"] = InventoryItem.__name__
+        return dict(**parent_dict, amount=self.amount)
+
+
 class WeaponType(StrEnum):
     CRUDE_WEAPON = "Crude Weapon"
     HAND_WEAPON = "Hand Weapon"
