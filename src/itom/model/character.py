@@ -65,5 +65,4 @@ class Character:
             notes=self.notes,
             experience_level=self.experience_level,
             arcana=self.arcana,
-            enterprises=self.enterprises,
         )

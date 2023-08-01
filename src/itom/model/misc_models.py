@@ -157,6 +157,7 @@ class Enterprise:
             creation_date=self.creation_date,
             name=self.name,
             enterprise_type=self.enterprise_type,
+            owners=self.owners,
             founding_date=self.founding_date,
             income_level=self.income_level,
             description=self.description,
