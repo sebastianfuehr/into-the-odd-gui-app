@@ -5,7 +5,15 @@ from typing import Any
 import dateutil.parser
 
 from itom.model.character import Character
-from itom.model.misc_models import Arcanum, Armor, Enterprise, Item, Note, Weapon
+from itom.model.misc_models import (
+    Arcanum,
+    Armor,
+    Enterprise,
+    InventoryItem,
+    Item,
+    Note,
+    Weapon,
+)
 
 
 class ItomJSONDecoder(json.JSONDecoder):
@@ -65,6 +73,22 @@ class ItomJSONDecoder(json.JSONDecoder):
                 bulky=json_dict["bulky"],
                 worth=worth,
                 image_file_path=json_dict["image_file_path"],
+            )
+        if "__type__" in json_dict and json_dict["__type__"] == InventoryItem.__name__:
+            worth = None
+            if json_dict["worth"]:
+                worth = (
+                    int(json_dict["worth"][0]),
+                    int(json_dict["worth"][1]),
+                    int(json_dict["worth"][2]),
+                )
+            return InventoryItem(
+                name=json_dict["name"],
+                description=json_dict["description"],
+                bulky=json_dict["bulky"],
+                worth=worth,
+                image_file_path=json_dict["image_file_path"],
+                amount=json_dict["amount"],
             )
         if "__type__" in json_dict and json_dict["__type__"] == Weapon.__name__:
             worth = None
