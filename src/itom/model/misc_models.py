@@ -96,6 +96,7 @@ class Weapon(Item):
 class ArmorType(StrEnum):
     CRUDE_ARMOR = "Crude Armor"
     MODERN_ARMOR = "Modern Armor"
+    SHIELD = "Shield"
 
 
 @dataclass(kw_only=True)
