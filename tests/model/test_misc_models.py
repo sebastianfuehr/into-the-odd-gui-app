@@ -9,6 +9,7 @@ from itom.model.misc_models import (
     ArmorType,
     Die,
     Enterprise,
+    InventoryItem,
     Item,
     Note,
     Weapon,
@@ -37,6 +38,22 @@ def test_item_repr_json() -> None:
         "bulky": False,
         "worth": None,
         "image_file_path": None,
+    }
+
+
+def test_inventory_item_repr_json() -> None:
+    name = "Lockpick"
+    worth = (0, 1, 0)
+    amount = 20
+    new_item = InventoryItem(name=name, worth=worth, amount=amount)
+    assert new_item.repr_json() == {
+        "__type__": InventoryItem.__name__,
+        "name": name,
+        "description": None,
+        "bulky": False,
+        "worth": worth,
+        "image_file_path": None,
+        "amount": amount,
     }
 
 

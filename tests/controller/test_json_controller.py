@@ -12,6 +12,7 @@ from itom.model.misc_models import (
     ArmorType,
     Die,
     Enterprise,
+    InventoryItem,
     Item,
     Note,
     Weapon,
@@ -134,6 +135,29 @@ class TestItemModelJSONSerialization:
         )
 
     def test_json_decode_item(self, item_lockpick: Item) -> None:
+        json_file = json.dumps(item_lockpick.repr_json(), cls=ItomJSONEncoder)
+        decoded_item = json.loads(json_file, cls=ItomJSONDecoder)
+        assert decoded_item == item_lockpick
+
+
+class TestInventoryItemModelJSONSerialization:
+    @pytest.fixture
+    def item_lockpick(self) -> InventoryItem:
+        return InventoryItem(name="Lockpick", worth=(0, 1, 0), amount=20)
+
+    def test_json_encode_item(self, item_lockpick: InventoryItem) -> None:
+        assert (
+            json.dumps(item_lockpick.repr_json(), cls=ItomJSONEncoder)
+            == f'{{"__type__": "{InventoryItem.__name__}", '
+            f'"name": "{item_lockpick.name}", '
+            '"description": null, '
+            '"bulky": false, '
+            '"worth": [0, 1, 0], '
+            '"image_file_path": null, '
+            f'"amount": {item_lockpick.amount}}}'
+        )
+
+    def test_json_decode_item(self, item_lockpick: InventoryItem) -> None:
         json_file = json.dumps(item_lockpick.repr_json(), cls=ItomJSONEncoder)
         decoded_item = json.loads(json_file, cls=ItomJSONDecoder)
         assert decoded_item == item_lockpick
