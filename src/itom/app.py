@@ -1,5 +1,6 @@
 from typing import Optional
 
+from controller.world_controller import WorldController
 from model.settings import Settings
 
 
@@ -10,6 +11,8 @@ class App:
             app_author="Sebastian Führ",
             settings_file_path=settings_file_path,
         )
+        self.world_controller = WorldController(self.settings)
+        self.world = self.world_controller.load_world("Default")
 
 
 if __name__ == "__main__":

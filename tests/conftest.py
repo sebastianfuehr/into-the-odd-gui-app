@@ -2,6 +2,16 @@ import pytest
 from utils.ito_mock_data_utils import generate_random_notes, generate_random_weapons
 
 from itom.model.character import Character, ExperienceLevel
+from itom.model.settings import Settings
+
+
+@pytest.fixture
+def default_settings() -> Settings:
+    """It is important to have the same app name and author here, so
+    that config files are read from the same directory as the actual
+    application would.
+    """
+    return Settings(app_name="Itom", app_author="Sebastian Führ")
 
 
 @pytest.fixture

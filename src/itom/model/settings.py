@@ -12,6 +12,7 @@ class Settings:
     """
 
     app_root_dir = Path(__file__).parent.parent.parent.parent
+    data_dir = f"{app_root_dir}/data"
 
     def __init__(
         self, app_name: str, app_author: str, settings_file_path: Optional[str] = None
