@@ -106,13 +106,13 @@ class ArcanmumType(StrEnum):
 
 
 @dataclass(kw_only=True)
-class Arcanmum(Item):
+class Arcanum(Item):
     idx_nbr: int
     arcanum_type: ArcanmumType
 
     def repr_json(self) -> dict:
         parent_dict = super().repr_json()
-        parent_dict["__type__"] = Arcanmum.__name__
+        parent_dict["__type__"] = Arcanum.__name__
         return {
             **parent_dict,
             **dict(idx_nbr=self.idx_nbr, arcanum_type=self.arcanum_type),
