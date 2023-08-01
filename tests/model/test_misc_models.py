@@ -3,8 +3,8 @@ from datetime import datetime
 from utils.ito_mock_data_utils import generate_random_notes
 
 from itom.model.misc_models import (
-    Arcanmum,
     ArcanmumType,
+    Arcanum,
     Armor,
     ArmorType,
     Die,
@@ -90,14 +90,14 @@ def test_arcanum_repr_json() -> None:
         "State an object that you desire. The heart indicated its direction and vague"
         " distance."
     )
-    new_arcanum = Arcanmum(
+    new_arcanum = Arcanum(
         name=name,
         description=description,
         idx_nbr=12,
         arcanum_type=ArcanmumType.STANDARD,
     )
     assert new_arcanum.repr_json() == {
-        "__type__": Arcanmum.__name__,
+        "__type__": Arcanum.__name__,
         "name": name,
         "description": description,
         "bulky": False,

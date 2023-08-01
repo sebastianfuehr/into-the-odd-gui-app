@@ -35,6 +35,7 @@ def test_repr_json(character_fixture_name: str, request: pytest.FixtureRequest) 
         "advantages": character.advantages,
         "disadvantages": character.disadvantages,
         "possessions": character.possessions,
+        "armor_items": character.armor_items,
         "weapons": character.weapons,
         "notes": character.notes,
         "experience_level": character.experience_level,
