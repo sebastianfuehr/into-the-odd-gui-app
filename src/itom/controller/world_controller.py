@@ -1,7 +1,7 @@
 import json
 
 from itom.controller.json_controller import ItomJSONDecoder
-from itom.model.settings import Settings
+from itom.model.definitions import Settings
 from itom.model.world import World
 
 

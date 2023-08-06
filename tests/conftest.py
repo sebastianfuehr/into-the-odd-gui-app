@@ -2,7 +2,7 @@ import pytest
 from utils.ito_mock_data_utils import generate_random_notes, generate_random_weapons
 
 from itom.model.character import Character, ExperienceLevel
-from itom.model.settings import Settings
+from itom.model.definitions import Settings
 
 
 @pytest.fixture

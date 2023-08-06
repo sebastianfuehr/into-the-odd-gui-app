@@ -1,4 +1,4 @@
-from itom.model.settings import Settings
+from itom.model.definitions import Settings
 
 
 def test_load_config_file() -> None:

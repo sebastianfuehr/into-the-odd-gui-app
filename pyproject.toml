@@ -12,13 +12,14 @@ python = "^3.11"
 appdirs = "^1.4.4"
 python-dateutil = "^2.8.2"
 types-python-dateutil = "^2.8.19.14"
-
+ttkbootstrap = "^1.10.1"
 
 [tool.poetry.group.lint.dependencies]
 isort = "^5.12.0"
 black = "^23.7.0"
 flake8 = "^6.0.0"
 mypy = "^1.4.1"
+tkinter-stubs = { url = "https://github.com/insolor/tkinter-stubs/releases/download/0.1.0/tkinter_stubs-0.1.0-py3-none-any.whl" }
 
 
 [tool.poetry.group.test.dependencies]
@@ -37,7 +38,7 @@ profile = "black"
 # 3rd party import
 ignore_missing_imports = true
 # dynamic typing
-disallow_any_unimported = true
+disallow_any_unimported = false
 disallow_any_expr = false
 disallow_any_decorated = false
 disallow_any_explicit = true
