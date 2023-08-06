@@ -2,7 +2,7 @@ from typing import Optional
 
 from components.main_frame import MainFrame
 from controller.world_controller import WorldController
-from model.settings import Settings
+from model.definitions import Settings
 
 
 class App:

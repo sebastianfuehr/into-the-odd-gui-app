@@ -1,5 +1,5 @@
 from itom.controller.world_controller import WorldController
-from itom.model.settings import Settings
+from itom.model.definitions import Settings
 
 
 def test_load_default_world(default_settings: Settings) -> None:
