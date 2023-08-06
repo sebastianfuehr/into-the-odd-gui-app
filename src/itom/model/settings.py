@@ -6,9 +6,17 @@ from appdirs import AppDirs
 
 
 class Settings:
-    """
+    """Dynamically loaded user settings.
+
     Attributes:
         app_root_dir(Path): The root directory of the application.
+        data_dir(str): The directory in which the application stores
+            data or retrieves it from.
+        dirs(AppDirs): Stores OS specific directory paths, e.g., for
+            data or config files.
+        config(ConfigParser): The loaded config parser form which to
+            retrieve user settings from.
+        name(str): The name of the settings file.
     """
 
     app_root_dir = Path(__file__).parent.parent.parent.parent
@@ -48,4 +56,7 @@ class Settings:
         return config_parser
 
     def load_settings(self) -> None:
+        """Calculates options for the application based on user
+        settings.
+        """
         self.name = self.config["DEFAULT"]["settings_name"]
